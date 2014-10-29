@@ -61,7 +61,7 @@ def many_times_b64decode(str, times):
 		str = base64.b64decode(str)
 	return str
 
-usrname = '2014110415'
+usrname = '' #学号
 base_pwd = '' #ten times base64 encode
 
 
