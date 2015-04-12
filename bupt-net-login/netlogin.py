@@ -51,32 +51,22 @@ def logout(usr, pwd):
 		print "Logout error!"
 
 
-def many_times_b64encode(str, times):
-	for i in range(times):
-		str = base64.b64encode(str)
-	return str
+def main(username, password):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-q', '--quit', action="store_false", help="logout")
+    args = parser.parse_args()
+    try:
+        if args.quit:
+            login(username, real_password)
+        else:
+            logout(username, real_password)
+    except:
+        print("there is some errors, please check the code!")
+        sys.exit(1)
 
-def many_times_b64decode(str, times):
-	for i in range(times):
-		str = base64.b64decode(str)
-	return str
 
-usrname = '' #学号
-base_pwd = '' #ten times base64 encode
-
-
-parser = argparse.ArgumentParser()
-parser.add_argument('-q', '--quit', action="store_false", help="logout")
-args = parser.parse_args()
-
-real_password = many_times_b64decode(base_pwd, 10)
-if os.path.split(__file__)[-1] == 'login.py':
-	login(usrname, real_password)
-
-elif os.path.split(__file__)[-1] == 'logout.py':
-	logout(usrname, real_password)
-
-else:
-	sys.exit(1)
-	
-sleep(1)
+if __name__ == '__main__':
+    username = ''
+    base64_pwd = '' #"username-password" base64 encode
+    real_password = base64.b64decode(base64_pwd).split("-")[-1]
+    main(username, real_password)
